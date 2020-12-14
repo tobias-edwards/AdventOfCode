@@ -1,30 +1,22 @@
-import readFile from "./../readFile.js";
+import readInput from "./../readInput.js";
 import { product } from "./../helpers/maths.js";
 import TreeMap from "./tree_map.js";
 
-const treeMapArr = readFile("./input.txt").then((file) =>
-  file.split("\n").filter((x) => x)
-);
+const treeMapArr = readInput("./input.txt")
+  .split("\n")
+  .filter((x) => x);
+
+const m = new TreeMap(treeMapArr);
 
 // Problem 3a
-treeMapArr
-  .then((mapArr) => {
-    const m = new TreeMap(mapArr);
-    return m.setMovePattern("r3 d1").countTreeCollisions();
-  })
-  .then((result) => console.log(result));
+console.log(m.setMovePattern("r3 d1").countTreeCollisions());
 
 // Problem 3b
-treeMapArr
-  .then((mapArr) => {
-    const m = new TreeMap(mapArr);
-    return [
-      m.setMovePattern("r1 d1").countTreeCollisions(),
-      m.setMovePattern("r3 d1").countTreeCollisions(),
-      m.setMovePattern("r5 d1").countTreeCollisions(),
-      m.setMovePattern("r7 d1").countTreeCollisions(),
-      m.setMovePattern("r1 d2").countTreeCollisions(),
-    ];
-  })
-  .then((treeCollisions) => product(treeCollisions))
-  .then((result) => console.log(result));
+const treeCollisions = [
+  m.setMovePattern("r1 d1").countTreeCollisions(),
+  m.setMovePattern("r3 d1").countTreeCollisions(),
+  m.setMovePattern("r5 d1").countTreeCollisions(),
+  m.setMovePattern("r7 d1").countTreeCollisions(),
+  m.setMovePattern("r1 d2").countTreeCollisions(),
+];
+console.log(product(treeCollisions));

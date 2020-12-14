@@ -1,4 +1,4 @@
-const fieldSpecs = {
+const passwordFieldSpecs = {
   byr: /(19[2-9]\d|200[0-2])/, // 1920-2002
   iyr: /(20(1\d|20))/, // 2010-2020
   eyr: /(20(2\d|30))/, // 2020-2030
@@ -8,4 +8,4 @@ const fieldSpecs = {
   pid: /\d{9}/, // [0-9]{9}
 };
 
-export default fieldSpecs;
+export default passwordFieldSpecs;
