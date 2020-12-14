@@ -33,5 +33,3 @@ const getHighestSeat = (seats) => {
   }
   return highestSeat;
 };
-
-export { calcSeatId, getCol, getRow, getHighestSeat };

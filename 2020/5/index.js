@@ -1,21 +1,23 @@
 import readFile from "./../readFile.js";
-import { calcSeatId, getCol, getRow, getHighestSeat } from "./flight_seats.js";
+import { replace } from "./binary.js";
 
 const seats = readFile("./input.txt").then((file) => file.split("\n"));
 
+const binarySeatKey = { F: 0, B: 1, L: 0, R: 1 };
+
 // Problem 4a
 seats
-  .then((seats) => getHighestSeat(seats))
-  .then((seat) => calcSeatId(getRow(seat), getCol(seat)))
+  .then((seats) => seats.map((seat) => replace(seat, binarySeatKey)).sort())
+  .then((sortedArr) => sortedArr[sortedArr.length - 1])
+  .then((highestSeat) => parseInt(highestSeat, 2))
   .then((seatId) => console.log(seatId));
 
 // Problem 4b
 seats
   .then((seats) => {
-    // Mark taken seats in array
-    const takenSeats = [...Array(calcSeatId(127, 7))].map((x) => 0);
+    const takenSeats = [...Array(2 ** 10)].map((x) => 0);
     for (const seat of seats) {
-      takenSeats[calcSeatId(getRow(seat), getCol(seat))] = 1;
+      takenSeats[parseInt(replace(seat, binarySeatKey), 2)] = 1;
     }
     return takenSeats;
   })
