@@ -1,47 +1,18 @@
 import readInput from "./../readInput.js";
-import { removeDuplicates } from "./../helpers/array.js";
+import Tree from "./tree/tree.js";
 
 const bagRules = readInput("./input.txt")
   .split("\n")
   .filter((x) => x);
 
-let bagNodes = {};
-
+// Build tree
+let tree = new Tree();
 for (const bagRule of bagRules) {
-  const [, parentBag, childrenBags] = bagRule.match(/(.*) bags contain (.*).$/);
-
-  if (childrenBags === "no other bags") {
-    continue;
-  }
-
-  for (const childBag of childrenBags.split(", ")) {
-    const childBagName = childBag.match(/\d+ (.*) bags?/)[1];
-    if (!(childBagName in bagNodes)) {
-      bagNodes[childBagName] = [];
-    }
-
-    bagNodes[childBagName].push(parentBag);
-  }
+  tree.addBagRule(bagRule);
 }
 
-/*
-for (const [name, containedBy] of Object.entries(bagNodes)) {
-  console.log(name, containedBy);
-}
-*/
+// Question 7a
+console.log(tree.findParentNodes("shiny gold").length);
 
-const _findParentBags = (childBag) => {
-  if (!(childBag in bagNodes)) {
-    return [];
-  }
-
-  return bagNodes[childBag]
-    .map((parentBag) => [parentBag].concat(_findParentBags(parentBag)))
-    .flat();
-};
-
-const findParentBags = (childBag) =>
-  removeDuplicates(_findParentBags(childBag));
-
-const root = "shiny gold";
-console.log(findParentBags(root).length);
+// Question 7b
+console.log(tree.countChildNodes("shiny gold"));
