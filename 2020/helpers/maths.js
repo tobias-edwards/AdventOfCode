@@ -1,5 +1,9 @@
-const product = arr => arr.reduce((acc, curr) => acc * curr);
+const max = (arr) => arr.reduce((max, curr) => (curr > max ? curr : max));
 
-const sum = arr => arr.reduce((acc, curr) => acc + curr);
+const min = (arr) => arr.reduce((min, curr) => (curr < min ? curr : min));
 
-export { product, sum }
+const product = (arr) => arr.reduce((acc, curr) => acc * curr, 1);
+
+const sum = (arr) => arr.reduce((acc, curr) => acc + curr, 0);
+
+export { max, min, product, sum };

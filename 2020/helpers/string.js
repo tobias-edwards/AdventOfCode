@@ -1,3 +1,6 @@
+const countOccurences = (str, char) =>
+  str.reduce((total, curr) => (curr === char ? total + 1 : total), 0);
+
 const hasCharOccurences = (str, char, lower, upper) => {
   let total = 0;
   for (let i = 0; i < str.length; i++) {
@@ -17,4 +20,4 @@ const replace = (str, key) => {
   return str.replace(new RegExp(`[${keys}]`, "g"), (char) => key[char]);
 };
 
-export { hasCharOccurences, replace };
+export { countOccurences, hasCharOccurences, replace };
