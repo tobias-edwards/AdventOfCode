@@ -1,5 +1,5 @@
-const countOccurences = (str, char) =>
-  str.reduce((total, curr) => (curr === char ? total + 1 : total), 0);
+const countOccurences = (arr, char) =>
+  arr.reduce((total, curr) => (curr === char ? total + 1 : total), 0);
 
 const hasCharOccurences = (str, char, lower, upper) => {
   let total = 0;
