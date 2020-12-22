@@ -1,0 +1,19 @@
+Data structure performance varies between languages due to implementation:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+1. JavaScript Map(): 
+Part b uses approx. 227 MB
+real	0m4.564s
+user	0m4.479s
+sys	0m0.090s
+
+2. Python Dictionary:
+real	0m12.482s
+user	0m12.241s
+sys	0m0.215s
+
+3. JavaScript Object:
+Part b uses approx. 2715 MB
+real	6m32.228s
+user	6m41.962s
+sys	0m12.378s
