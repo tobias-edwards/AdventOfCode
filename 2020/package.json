@@ -4,5 +4,8 @@
   "main": "index.js",
   "author": "Tobias Edwards",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "cli-progress": "^3.8.2"
+  }
 }
