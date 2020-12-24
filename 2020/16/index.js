@@ -44,8 +44,8 @@ const validNearbyTickets = nearbyTickets.filter((ticket) =>
   ticket.every((value) => validForAnyField(value))
 );
 
-const fieldCandidates = {};
 const numFields = Object.keys(fields).length;
+const fieldCandidates = {};
 
 for (const [name, isValid] of Object.entries(fields)) {
   for (let i = 0; i < numFields; i++) {
@@ -58,25 +58,20 @@ for (const [name, isValid] of Object.entries(fields)) {
   }
 }
 
+// Sort by length of field candidates
 const sortedFieldCandidates = Object.entries(fieldCandidates).sort(
   ([, a], [, b]) => a.length - b.length
 );
 
-const assignedIndexes = new Set();
-
 const fieldIndexes = sortedFieldCandidates.reduce((obj, [name, candidates]) => {
-  const freeIndex = [...difference(new Set(candidates), assignedIndexes)][0];
-  obj[name] = freeIndex;
-  assignedIndexes.add(freeIndex);
+  obj[name] = [
+    ...difference(new Set(candidates), new Set(Object.values(obj))),
+  ][0];
   return obj;
 }, {});
 
-const departureIndexes = Object.keys(fieldIndexes)
+const departureValues = Object.keys(fieldIndexes)
   .filter((name) => /^departure/.test(name))
-  .map((key) => fieldIndexes[key]);
-
-const departureValues = myTicket.filter((value, i) =>
-  departureIndexes.includes(i)
-);
+  .map((key) => myTicket[fieldIndexes[key]]);
 
 console.log(product(departureValues));
