@@ -1,3 +1,6 @@
+const difference = (setA, setB) =>
+  new Set([...setA].filter((el) => !setB.has(el)));
+
 const intersection = (setA, ...restSets) => {
   if (restSets.length === 0) {
     return setA;
@@ -10,4 +13,4 @@ const intersection = (setA, ...restSets) => {
   return new Set(_intersection);
 };
 
-export { intersection };
+export { difference, intersection };

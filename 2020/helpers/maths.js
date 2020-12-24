@@ -8,7 +8,10 @@ export const max = (arr) =>
 export const min = (arr) =>
   arr.reduce((min, curr) => (curr < min ? curr : min));
 
-export const product = (arr) => arr.reduce((acc, curr) => acc * curr, 1);
+export const product = (arr) => {
+  if (arr === []) return 0;
+  return arr.reduce((acc, curr) => acc * curr, 1);
+};
 
 export const rotatePointAbout = (pointX, pointY, deg, pivotX, pivotY) => {
   const c = Math.cos(toRadians(deg));
