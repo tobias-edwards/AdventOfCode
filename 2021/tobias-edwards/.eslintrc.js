@@ -17,6 +17,15 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['prettier'],
-  rules: {},
+  plugins: ['prettier', 'simple-import-sort', 'sort-destructure-keys'],
+  rules: {
+    'import/prefer-default-export': 0,
+    'prettier/prettier': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'sort-destructure-keys/sort-destructure-keys': [
+      2,
+      { caseSensitive: false },
+    ],
+  },
 };
