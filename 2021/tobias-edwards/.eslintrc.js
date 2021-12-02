@@ -3,11 +3,20 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['airbnb-base'],
+  extends: ['airbnb-base', 'prettier'],
+  overrides: [
+    // Support jest for test files only
+    {
+      files: ['**/*.test.js'],
+      env: { 'jest/globals': true },
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended'],
+    },
+  ],
   parserOptions: {
     ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['jest'],
+  plugins: ['prettier'],
   rules: {},
 };
