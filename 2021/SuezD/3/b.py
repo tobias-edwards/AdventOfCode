@@ -1,44 +1,47 @@
 import numpy as np
 
 def lifeSupport(filename):
+    # generate matrix from file
     a = np.genfromtxt(filename, delimiter = 1)
+    
+    # extract first column
+    col = list(a[:,0])
 
-    i=0
-    cols = len(a)
-    col = a[:,i]
-
-    if sum(col) == cols/2 or sum(col) > int(cols/2):
-        criteria = 1
-    else:
-        criteria = 0
+    # find least and most common number in col
+    leastCommon = min(set(col), key=col.count)
+    mostCommon = int (not leastCommon)
         
-    generatorData = a[a[:,i]==criteria, :]
-    scrubberData = a[a[:,i]==int(not criteria), :]
+    # split data into scrubber and generator data
+    scrubberData = a[a[:,0]==leastCommon, :]
+    generatorData = a[a[:,0]==mostCommon, :]
     
-    g = f(generatorData, 1)  
-    s = f(scrubberData, 0)
+    s = f(scrubberData, True)
+    g = f(generatorData, False)  
     
-    return g*s
+    return s*g
     
     
-def f(data, c):
-    i = 1
+def f(data, leastCommon):
+    
+    i = 1   # column pointer
+    
     while(len(data) > 1):
-        cols = len(data)
-        col = data[:,i]
+        col = list(data[:,i])
         
-        if sum(col) == cols/2 or sum(col) > int(cols/2):
-            criteria = c
-        else:
-            criteria = int(not c)
+        # find least/most common number
+        criteria = min(set(col), key=col.count)
+        if not leastCommon: 
+            criteria = int (not criteria)
             
+        # extract data based on criteria
         data = data[data[:,i]==criteria, :]
         i+=1
     
-    x = (int(''.join([str(int(i)) for i in data[0]]),2))
-    return x
+    # read remaining row as binary number
+    result = (int(''.join([str(int(i)) for i in data[0]]),2))
+    return result
 
 
 if __name__=="__main__":
     assert lifeSupport('test.txt') == 230
-    print(lifeSupport('input.txt'))
+    print(lifeSupport('test.txt'))
