@@ -1,15 +1,17 @@
 def power(filename):
     lines = 0
-    total = []
     with open(filename) as f:
+        columnTotal = [int(i) for i in f.readline().strip('\n')]
         for line in f:
             line = line.strip('\n')
-            if lines == 0: total =[0 for i in range(len(line))]
-            lines += 1
+            
+            # for each bit in line, add value to column total
             for i, bit in enumerate(line):
-                total[i] += int(bit)
+                columnTotal[i] += int(bit)
+            
+            lines += 1  # track number of lines in file
     
-    gamma = ['1' if i>int(lines/2) else '0' for i in total]
+    gamma = ['1' if i>int(lines/2) else '0' for i in columnTotal]
    
     g = int(''.join(gamma),2)
     e = int('1'*len(gamma),2) - g
