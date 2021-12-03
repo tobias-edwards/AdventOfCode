@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: ['prettier', 'simple-import-sort', 'sort-destructure-keys'],
   rules: {
+    'default-case': 0,
     'import/prefer-default-export': 0,
     'prettier/prettier': 'error',
     'simple-import-sort/imports': 'error',
