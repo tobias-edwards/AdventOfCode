@@ -1,6 +1,6 @@
 import path from 'path';
 
-import solve, { calcEpsilonRate, mostCommonBitPositions } from './a';
+import solve, { calcEpsilonRate, calcGammaRate } from './a';
 
 test('example', () => {
   const binaryNumbers = [
@@ -17,7 +17,7 @@ test('example', () => {
     '00010',
     '01010',
   ];
-  const gammaRate = mostCommonBitPositions(binaryNumbers);
+  const gammaRate = calcGammaRate(binaryNumbers);
   expect(gammaRate).toEqual('10110');
   expect(calcEpsilonRate(gammaRate)).toEqual(9);
 });

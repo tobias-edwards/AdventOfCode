@@ -1,9 +1,9 @@
 import path from 'path';
 
 import solve, {
-  co2ScrubberRatingBitCriteria,
+  calcCO2ScrubberRating,
+  calcOxygenGeneratorRating,
   lifeSupportRating,
-  oxygenGeneratorRatingBitCriteria,
 } from './b';
 
 test('example', () => {
@@ -21,10 +21,10 @@ test('example', () => {
     '00010',
     '01010',
   ];
-  const oxygenGeneratorRating = oxygenGeneratorRatingBitCriteria(binaryNumbers);
+  const oxygenGeneratorRating = calcOxygenGeneratorRating(binaryNumbers);
   expect(oxygenGeneratorRating).toEqual('10111');
 
-  const co2ScrubberRating = co2ScrubberRatingBitCriteria(binaryNumbers);
+  const co2ScrubberRating = calcCO2ScrubberRating(binaryNumbers);
   expect(co2ScrubberRating).toEqual('01010');
 
   expect(lifeSupportRating(oxygenGeneratorRating, co2ScrubberRating)).toEqual(

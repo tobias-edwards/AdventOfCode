@@ -1,23 +1,19 @@
 import { readFile } from '../utils/file';
+import { sum } from '../utils/maths';
 
 export const getBinaryNumbers = (filename) =>
   readFile(filename)
     .split('\n')
     .filter((n) => n);
 
-export const mostCommonBitPositions = (binaryNumbers) => {
-  const initialBitCounts = Array(binaryNumbers[0].length).fill(0);
+export const getMostCommonBit = (bits) =>
+  sum(bits) >= bits.length / 2 ? '1' : '0';
 
-  return binaryNumbers
-    .reduce(
-      (bitCounts, binaryNumber) =>
-        bitCounts.map(
-          (bitCount, i) => bitCount + (binaryNumber[i] === '1' ? 1 : -1)
-        ),
-      initialBitCounts
-    )
-    .map((bitCount) => (bitCount >= 0 ? '1' : '0'))
-    .join('');
+export const calcGammaRate = (binaryNumbers) => {
+  const numBits = binaryNumbers[0].length;
+  return Array.from(Array(numBits), (_, i) =>
+    getMostCommonBit(binaryNumbers.map((bin) => +bin[i]))
+  ).join('');
 };
 
 export const calcEpsilonRate = (gammaRate) => {
@@ -25,9 +21,11 @@ export const calcEpsilonRate = (gammaRate) => {
   return 2 ** numBits - 1 - parseInt(gammaRate, 2);
 };
 
+const powerConsumption = (gammaRate, epsilonRate) => gammaRate * epsilonRate;
+
 export default (filename) => {
   const binaryNumbers = getBinaryNumbers(filename);
-  const gammaRate = mostCommonBitPositions(binaryNumbers);
+  const gammaRate = calcGammaRate(binaryNumbers);
   const epsilonRate = calcEpsilonRate(gammaRate);
-  return parseInt(gammaRate, 2) * epsilonRate;
+  return powerConsumption(parseInt(gammaRate, 2), epsilonRate);
 };
