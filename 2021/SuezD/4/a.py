@@ -1,14 +1,19 @@
 import numpy as np
-
-def checkGameOver(a):
-    # for each board, calculate sum of each row and col
-    # game over if all values in a row/col are 1
-    for index,board in enumerate(a):
-        l = len(a[0][0])
-        if l in board.sum(axis=0) or l in board.sum(axis=1):
-            return index
-    return -1
     
+def chooseBoard(numbers, boards, tracker):
+    while True:
+        n = numbers.pop(0)
+        for i,board in enumerate(boards):
+            for j,row in enumerate(board):
+                if n in row:
+                    col = list(row).index(n)
+                    tracker[i][j][col] = 1
+                    
+                    # check for 5 in a row
+                    if sum(tracker[i][j]) == 5 or \
+                        sum(tracker[i,:,col]) == 5:
+                        return i, n
+                    
 def score(filename):
     
     # store boards in array
@@ -26,20 +31,8 @@ def score(filename):
     # create a corresponding array of zeroes for each board
     tracker = np.zeros(boards.shape)
     
-    gameOver = False
-    while not gameOver:
-        n = numbers.pop(0)
-        for i,board in enumerate(boards):
-            for j,row in enumerate(board):
-                if n in row:
-                    tracker[i][j][list(row).index(n)] = 1
-                    
-                    # check for 5 in a row
-                    winner = checkGameOver(tracker)
-                    if winner != -1:
-                        gameOver = True
-                    
-                    break
+    # choose board based on first board to win
+    winner, n = chooseBoard(numbers, boards, tracker)
     
     # calculate score
     flippedTracker = 1 - tracker[winner]
