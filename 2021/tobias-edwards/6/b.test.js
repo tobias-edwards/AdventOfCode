@@ -9,5 +9,5 @@ test('example', () => {
 
 test('puzzle input', () => {
   const answer = solve(path.resolve(__dirname, './input.txt'), 256);
-  expect(answer).toEqual(21577);
+  expect(answer).toEqual(1674303997472);
 });
