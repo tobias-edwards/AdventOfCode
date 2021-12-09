@@ -1,3 +1,6 @@
+export const arraysAreEqual = (arr1, arr2) =>
+  arr1.every((el, i) => el === arr2[i]);
+
 const count = (arr) =>
   arr.reduce((counts, el) => {
     /* eslint-disable-next-line no-param-reassign */
