@@ -1,5 +1,10 @@
-export const arraysAreEqual = (arr1, arr2) =>
-  arr1.every((el, i) => el === arr2[i]);
+export const intersection = (set1, set2) => {
+  const inBoth = new Set();
+  set1.forEach((el) => {
+    if (set2.has(el)) inBoth.add(el);
+  });
+  return inBoth;
+};
 
 const count = (arr) =>
   arr.reduce((counts, el) => {
